@@ -41,23 +41,17 @@ public class TransactionService {
 			transaction.setTransactionTime(Utility.getCurrentTimeStamp());
 			transaction.setRequester(transaction.getRequester());
 			transaction.setTransactionType(Utility.base64Decode(transaction.getTransactionType()));
-
-			transaction.setSourceAccountNumber(Utility.base64Decode(transaction.getSourceAccountNumber()));
-			transaction.setDestinationAccountNumber(Utility.base64Decode(transaction.getDestinationAccountNumber()));
-			
-			/*
-			 * String trnsType = Utility.base64Decode(transaction.getTransactionType());
-			 * 
-			 * if (trnsType == "TRANSFER") {
-			 * transaction.setSourceAccountNumber(Utility.base64Decode(transaction.
-			 * getSourceAccountNumber())); transaction
-			 * .setDestinationAccountNumber(Utility.base64Decode(transaction.
-			 * getDestinationAccountNumber())); } if (trnsType == "REVERSE") {
-			 * transaction.setSourceAccountNumber(Utility.base64Decode(transaction.
-			 * getDestinationAccountNumber()));
-			 * transaction.setDestinationAccountNumber(Utility.base64Decode(transaction.
-			 * getSourceAccountNumber())); }
-			 */
+			String trnsType = transaction.getTransactionType();
+			if (trnsType.equals("TRANSFER") ) {
+				logger.info("Call transaction Service........TRANSFER..........");
+				transaction.setSourceAccountNumber(Utility.base64Decode(transaction.getSourceAccountNumber()));
+				transaction.setDestinationAccountNumber(Utility.base64Decode(transaction.getDestinationAccountNumber()));
+			}
+			if (trnsType.equals("REVERSE")) {
+				logger.info("Call transaction Service........REVERSE..........");
+				transaction.setSourceAccountNumber(Utility.base64Decode(transaction.getDestinationAccountNumber()));
+				transaction.setDestinationAccountNumber(Utility.base64Decode(transaction.getSourceAccountNumber()));
+			}
 			transaction.setAmount(Double.parseDouble(Utility.base64Decode(transaction.getStrAmount())));
 			transaction.setNote(transaction.getNote());
 
@@ -72,8 +66,6 @@ public class TransactionService {
 
 		return WSResponse.createFailure("Error", errorMessages.toArray(new String[errorMessages.size()]));
 	}
-
-
 
 	private ArrayList<String> validateTransaction(Transaction transaction) {
 		ArrayList<String> errors = new ArrayList<String>();
