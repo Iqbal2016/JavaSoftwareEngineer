@@ -24,7 +24,7 @@ public class Transaction {
 
 	@Id
 	@Column(unique = true, nullable = false)
-	@NotBlank(message = "*Please provide your account number (request Id)")
+	@NotBlank(message = "*Please provide your request Id")
 	private String requestId;
 
 	private Timestamp transactionTime;
@@ -34,13 +34,11 @@ public class Transaction {
 	@NotBlank(message = "*Please provide transaction Type")
 	private String transactionType;
 
-	@Length(min = 14, max = 16, message = "*Your name must have at least 14 digits account number")
 	@NotBlank(message = "*Please provide your account number")
 	private String sourceAccountNumber;
 
 	private double amount;
 
-	@Length(min = 14, max = 16, message = "*Your name must have at least 14 digits account number")
 	@NotBlank(message = "*Please provide destination account number")
 	private String destinationAccountNumber;
 
