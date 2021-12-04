@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.transaction.service.bean.WSResponse;
@@ -26,7 +25,7 @@ import com.microservice.transaction.service.service.TransactionService;
  */
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/transaction-service")
 public class TransactionServiceController {
 
 	protected Logger logger = Logger.getLogger(TransactionServiceController.class.getName());
@@ -34,35 +33,21 @@ public class TransactionServiceController {
 	@Autowired
 	TransactionService transactionService;
 
-	@ResponseBody
-	@GetMapping(value = "/transaction-service/testing", produces = "text/plain")
+	@GetMapping(value = "/index", produces = "text/plain")
 	public String index() {
-		System.out.println("request accept..............");
-		logger.info("request accept..............");
+		logger.info("Application is running..............");
 		return "Application is running...";
 
 	}
 
-	@PostMapping(value = "/transaction-service/transaction")
-	//@ResponseStatus(code = HttpStatus.BAD_GATEWAY)
-	public WSResponse showRegistrationForm(@RequestBody Transaction transaction, BindingResult result, HttpServletResponse response)
-			throws Exception {
-		logger.info("request accept for insert data.........0.....");
-		// return transactionService.performTransaction(transaction);
-
-		/*
-		 * if (result.hasErrors()) {
-		 * logger.info("request accept for insert data........1......"); throw new
-		 * Exception("The password provided is too short" + HttpStatus.BAD_REQUEST); }
-		 * else { logger.info("request accept for insert data........2......");
-		 * transaction = transactionService.performTransaction(transaction); new
-		 * ResponseEntity<Transaction>(transaction, HttpStatus.OK); }
-		 */
-		
+	@PostMapping(value = "/dotransaction")
+	public WSResponse doTransaction(@RequestBody Transaction transaction, BindingResult result,
+			HttpServletResponse response) throws Exception {
+		logger.info("Transaction start from controller....");
 		WSResponse data = transactionService.performTransaction(transaction);
-		if (data.getOutcome()=="error") {
-			 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		}	
+		if (data.getOutcome() == "error") {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
 		return data;
 
 	}

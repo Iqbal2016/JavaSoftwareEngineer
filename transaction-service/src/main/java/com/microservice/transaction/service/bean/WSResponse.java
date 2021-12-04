@@ -1,38 +1,10 @@
 package com.microservice.transaction.service.bean;
 
-import java.util.UUID;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpStatusCodeException;
-
 public class WSResponse {
 	private String outcome;
 	private String message;
-	private UUID id;
-	private String code;
-	private String mode;
 	private Object data;
 	private String[] error;
-	private HttpStatus status;
-
-	public static WSResponse createSuccess(String msg, UUID id, String mode, Object data) {
-		WSResponse wsResponse = new WSResponse();
-		wsResponse.outcome = "success";
-		wsResponse.message = msg;
-		wsResponse.id = id;
-		wsResponse.mode = mode;
-		wsResponse.data = data;
-		return wsResponse;
-	}
-
-	public static WSResponse createSuccess(String msg, UUID id, Object data) {
-		WSResponse wsResponse = new WSResponse();
-		wsResponse.outcome = "success";
-		wsResponse.message = msg;
-		wsResponse.id = id;
-		wsResponse.data = data;
-		return wsResponse;
-	}
 
 	public static WSResponse createSuccess(String msg, Object data) {
 		WSResponse wsResponse = new WSResponse();
@@ -50,6 +22,7 @@ public class WSResponse {
 		return wsResponse;
 	}
 
+
 	public String[] getError() {
 		return error;
 	}
@@ -66,24 +39,17 @@ public class WSResponse {
 		this.data = data;
 	}
 
-	public WSResponse(String outcome, String message, UUID id, String code, String mode, Object data) {
+	public WSResponse(String outcome, String message, Object data) {
 		super();
 		this.outcome = outcome;
 		this.message = message;
-		this.id = id;
-		this.code = code;
-		this.mode = mode;
 		this.data = data;
 	}
 
-	public WSResponse(String outcome, String message, UUID id, String code, String mode, Object data, String[] error) {
+	public WSResponse(String outcome, String message, String[] error) {
 		super();
 		this.outcome = outcome;
 		this.message = message;
-		this.id = id;
-		this.code = code;
-		this.mode = mode;
-		this.data = data;
 		this.error = error;
 	}
 
@@ -99,18 +65,6 @@ public class WSResponse {
 		return message;
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public String getMode() {
-		return mode;
-	}
-
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
 	}
@@ -118,23 +72,5 @@ public class WSResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public void setMode(String mode) {
-		this.mode = mode;
-	}
-
-	/*
-	 * @Override public boolean equals(Object obj) {
-	 * 
-	 * return this.equals(obj); }
-	 */
 
 }
