@@ -14,7 +14,7 @@ CREATE TABLE Account
 );
 
 -------------------------------------Insert value Account Table ------------------------------
-
+--character varying column 1st digit 0 not not allowed in this query, when select value need to get wit LPAD Ex: LPAD('1241009211439', 15 , '0') 
 INSERT INTO Account(id, name, address,  account_number, balance, status) VALUES(1, 'Mohammad', 'Madaripur' , '1241009211439' , 5000, 'Active');
 INSERT INTO Account(id, name, address,  account_number, balance, status) VALUES(2, 'Hossain', 'Rampura' , '32341200923487' , 5000, 'Active');
 INSERT INTO Account(id, name, address,  account_number, balance, status) VALUES(3, 'Iqbal', 'Dhaka' , '123456789123456' , 5000, 'Active');
